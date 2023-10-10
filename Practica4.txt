@@ -1,0 +1,87 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <fstream>
+#include <sstream>
+
+class Enrutador {
+public:
+    Enrutador(char id) : id(id) {}
+
+    void actualizarTablaDeEnrutamiento(const std::unordered_map<char, int>& nuevaTabla) {
+        tablaDeEnrutamiento = nuevaTabla;
+    }
+
+    char getId() const {
+        return id;
+    }
+
+    int costoHaciaEnrutador(char destino) const {
+        return tablaDeEnrutamiento.at(destino);
+    }
+
+private:
+    char id;
+    std::unordered_map<char, int> tablaDeEnrutamiento; // Destino -> Costo
+};
+
+class Red {
+public:
+    void agregarEnrutador(Enrutador enrutador) {
+        enrutadores[enrutador.getId()] = enrutador;
+    }
+
+    void cargarDesdeArchivo(const std::string& nombreArchivo) {
+        // parte para cargar la topología desde un archivo
+        
+    }
+
+    int costoDeEnvio(char origen, char destino) {
+        // Devuelve el costo para enviar un paquete desde origen hasta destino
+        
+    }
+
+    std::vector<char> caminoOptimo(char origen, char destino) {
+        // Devuelve el camino óptimo desde origen hasta destino
+        
+    }
+
+    // funciones para actualizar la red y generar redes aleatorias
+    
+private:
+    std::unordered_map<char, Enrutador> enrutadores; // Id -> Enrutador
+};
+
+int main() {
+    Red red;
+    
+    // Agregar enrutadores a la red
+    Enrutador enrutadorA('A');
+    Enrutador enrutadorB('B');
+    Enrutador enrutadorC('C');
+    Enrutador enrutadorD('D');
+
+    red.agregarEnrutador(enrutadorA);
+    red.agregarEnrutador(enrutadorB);
+    red.agregarEnrutador(enrutadorC);
+    red.agregarEnrutador(enrutadorD);
+
+    // Cargar topología desde un archivo
+    red.cargarDesdeArchivo("topologia.txt");
+
+    // Ejemplo de cómo usar las funciones de la red
+    char origen = 'A';
+    char destino = 'D';
+
+    int costo = red.costoDeEnvio(origen, destino);
+    std::cout << "Costo de enviar un paquete desde " << origen << " hasta " << destino << ": " << costo << std::endl;
+
+    std::vector<char> camino = red.caminoOptimo(origen, destino);
+    std::cout << "Camino óptimo: ";
+    for (char enrutador : camino) {
+        std::cout << enrutador << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
